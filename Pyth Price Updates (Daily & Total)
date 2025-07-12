@@ -1,0 +1,9 @@
+SELECT
+date_trunc('day',block_timestamp) as Day
+,count(DISTINCT tx_hash) as number_of_updates
+,sum(number_of_updates) over (order by 'day' ASC) as Total_updates
+FROM aptos.core.fact_events
+WHERE event_address = '0x7e783b349d3e89cf5931af376ebeadbfab855b3fa239b7ada8f5a92fbea6b387'
+and success = 'TRUE'
+GROUP BY 1 
+order by 1 ASC
